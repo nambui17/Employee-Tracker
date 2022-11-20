@@ -1,19 +1,26 @@
 const roles = require('express').Router();
-const sequelize = require('../config/connection.js');
-const { QueryTypes } = require('sequelize');
+const mysql = require('mysql2');
+require('dotenv').config();
+
+const db = mysql.createConnection(
+    {
+        host: 'localhost',
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME
+    },
+);
 
 roles.get('/', async (req,res) => {
-    const ret = await sequelize.query('SELECT * FROM roles', {type: QueryTypes.SELECT});
-    res.json(ret);
+    db.query('SELECT * FROM roles', function (err, results) {
+        res.json(results);
+    });
 });
 
-roles.get('/:id', async (req,res) => {
-    const ret = await sequelize.query('SELECT * FROM roles WHERE id = ?', 
-    {
-        replacements: [req.params.id],
-        type: QueryTypes.SELECT
+roles.get('/:id', (req,res) => {
+    db.query('SELECT * FROM roles WHERE id = ?', req.params.id, (err,result) => {
+        res.json(result);
     });
-    res.json(ret);
 });
 
 module.exports = roles;

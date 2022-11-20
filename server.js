@@ -1,7 +1,5 @@
 const express = require('express');
 const api = require('./routes/index.js');
-const sequelize = require('./config/connection');
-const mysql = require('mysql2');
 const helperDepartment = require('./helpers/departmentActions');
 const helperEmployee = require('./helpers/employeeActions');
 const helperRole = require('./helpers/roleActions');
@@ -22,11 +20,9 @@ app.use((req, res) => {
 });
 
 //Creates a connection to the database
-sequelize.sync().then(() => {
-  app.listen(PORT, () => {
-    console.log('Now Listening');
-    promptUser();
-  })
+app.listen(PORT, () => {
+  console.log(`Server running on port http://localhost:${PORT}`);
+  promptUser();
 });
 
 function promptUser() {
@@ -51,12 +47,12 @@ function promptUser() {
   .then((data) => {
     if (data.action === questions[0].choices[0]) {
       helperDepartment.viewAllDepartments();
-    } else if (data.action === questions.choices[1]) {
-      viewAllRoles();
+    } else if (data.action === questions[0].choices[1]) {
+      helperRole.viewAllRoles();
     } else if (data.action === questions[0].choices[2]) {
       viewAllEmployees();
     } else if (data.action === questions[0].choices[3]) {
-      addDepartment();
+      helperDepartment.addDepartment();
     } else if (data.action === questions[0].choices[4]) {
       addRole();
     } else if (data.action === questions[0].choices[5]) {
