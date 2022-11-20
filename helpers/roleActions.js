@@ -1,0 +1,9 @@
+
+
+function viewAllDepartments() {
+
+};
+
+function addDepartment() {
+
+};
