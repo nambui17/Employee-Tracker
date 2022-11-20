@@ -1,14 +1,37 @@
 const mysql = require('mysql2');
-const { QueryTypes } = require('sequelize');
-const sequelize = require('../config/connection.js');
+const inquirer = require('inquirer');
 
-async function viewAllDepartments() {
-    const results = await sequelize.query('SELECT * FROM departments', {type: QueryTypes.SELECT});
-    console.log(results);
+const db = mysql.createConnection(
+    {
+        host: 'localhost',
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME
+    },
+);
+
+function viewAllDepartments() {
+    db.query('SELECT * FROM departments', function (err,results) {
+        console.log(results)
+    })
+    // results are in form of array of objects can iterate through for generation
 };
 
 async function addDepartment() {
-    sequelize.query('INSERT INTO departments')
+    const depAdd = await inquirer
+        .prompt([
+            {
+                type: 'input',
+                message: 'What is the name of the department you want to add?',
+                name: 'department'
+            }
+        ]);
+        db.query('INSERT INTO departments(name) VALUES (?)', depAdd.department, (err,result) => {
+            if (err) {
+                console.log(err);
+            }
+            console.log(result);
+        });
 };
 
 module.exports = {
