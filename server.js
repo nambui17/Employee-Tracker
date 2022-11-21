@@ -3,7 +3,6 @@ const api = require('./routes/index.js');
 const inquirer = require('./node_modules/inquirer');
 const mysql = require('mysql2');
 const conTable = require('console.table');
-const employees = require('./routes/employees.js');
 require('dotenv').config();
 
 const db = mysql.createConnection(
