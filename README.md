@@ -40,8 +40,14 @@
   ```
   SOURCE db/seeds.sql
   ```
-  This will initialize the database and populate it with initial data.
-
+  This will initialize the database and populate it with initial data. Create a .env file and add your credentials to it: For example:
+  ```
+  DB_USER = 'root'
+  DB_NAME = 'employees_db'
+  DB_PASSWORD = "password1234"
+  ```
+  Make sure that the password is the password to your MySQL user.
+  
   ## Usage
 
   Run the program by using either of the following commands:

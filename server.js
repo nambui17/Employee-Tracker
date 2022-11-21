@@ -17,18 +17,15 @@ const db = mysql.createConnection(
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-// Express middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use('/api', api);
 
-// Default response for any other request (Not Found)
 app.use((req, res) => {
   res.status(404).end();
 });
 
-//Creates a connection to the database
 app.listen(PORT, () => {
   console.log(`Server running on port http://localhost:${PORT}`);
   promptUser();
@@ -184,7 +181,6 @@ function viewAllEmployees() {
 
 async function addEmployee() {
   db.query('SELECT * FROM roles', async (err, allRoles) => {
-    // Managers don't have another manager so their manager_id is null
     db.query('SELECT * FROM employees WHERE manager_id IS NULL', async (err, managers) => {
       let manageChoices = managers.map(manager => ({name: manager.first_name + " " + manager.last_name, value: manager.id}))
       manageChoices.push({name: 'None', value: null});
@@ -235,17 +231,14 @@ async function updateEmployeeRole() {
     if (err) {
       throw err;
     }
-    // done inside a db query because can get list of employees this way. Can map all employees to an object of choices
     const employeeSelect = await inquirer
     .prompt([
         {
             type: 'list',
             message: 'Select the employee whose role you would like to update.',
-            /// results are an array of objects each object is different employee, into an object with only the employee_id from the first and last name of the employee
             choices: results.map(employee => ({name:employee.first_name + " " + employee.last_name, value: employee.id})),
             name: 'employee_id'
         }
-    // After selecting employee connect to database to have choices of roles to change that employee to.
     ])
     db.query('SELECT * FROM roles', async (err, allRoles) => {
       const roleSelect = await inquirer
@@ -278,7 +271,6 @@ async function updateEmployeeRole() {
 };
 
 function viewEmployeesByManager() {
-  // Find all managers
   db.query('SELECT * FROM employees WHERE manager_id IS NULL', async (err,managers) => {
     const empManage = await inquirer
     .prompt([
@@ -300,7 +292,6 @@ function viewEmployeesByManager() {
       promptUser();
     })
   });
-  //get the manager id from list
 };
 
 function updateEmployeeManager() {
