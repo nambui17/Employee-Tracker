@@ -69,7 +69,7 @@
 
   A video tutorial can be viewed here.
 
-  [Video Tutorial](chrome-extension://mmeijimgabbpbgpdklnllpncmdofkcpn/app.html#/files/dc21ded6-446e-43b2-ye0f-21e34b0d6499)
+  [Video Tutorial](https://watch.screencastify.com/v/g9e8M4jiudl0D5buk7tT)
 
   ## Credits
 
