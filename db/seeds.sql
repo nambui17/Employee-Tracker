@@ -6,15 +6,16 @@ VALUES  ('R&D'),
         ('Operations');
 
 INSERT INTO roles(title,salary, department_id)
-VALUES  ('Associate', 60000.00, 3),
-        ('Partner', 80000.00, 2),
-        ('Manager', 100000.00, 4),
+VALUES  ('Associate Scientist', 60000.00, 1),
+        ('Senior Scientist', 80000.00, 4),
         ('Fellow', 150000.00, 1),
-        ('Director', 175000.00, 5);
+        ('Partner', 80000.00, 2),
+        ('Manager', 100000.00, 5);
 
 INSERT INTO employees(first_name,last_name, role_id, manager_id)
-VALUES  ('John','Doe', 1, 1),
-        ('Jane','Doe', 2, 2),
-        ('Aoife','Ceallaigh', 3, 3),
-        ('Mohammed','Avdol', 4, 4),
-        ('Guillaume','Deschamps', 5, 5);
+VALUES  ('Aoife','Ceallaigh', 5, NULL),
+        ('Mohammed','Avdol', 5, NULL),
+        ('Guillaume','Deschamps', 1, 1),
+        ('Tim', 'Horton', 1, 2),
+        ('John','Doe', 1, 1),
+        ('Jane','Doe', 1, 2);
